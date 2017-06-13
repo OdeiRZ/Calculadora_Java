@@ -11,20 +11,51 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Clase Calculadora que extiende de JFrame.
+ * Se encarga de generar los elementos multimedia utilizados para implementar
+ * la interfaz gráfica y los métodos y gestión de nuestra aplicación.
+ *
+ * @author Odei
+ * @version 25.11.2014
+ */
 public class Calculadora extends JFrame {
-
+    /**
+     * Variable booleana que habilita o no las nuevas operaciones.
+     */
     private boolean nuevaOperacion;
     
+    /**
+     * Variable real que almacena los resultados de las operaciones.
+     */
     private double resultado;
     
+    /**
+     * Variable de tipo cadena que almacena las operaciones a realizar.
+     */
     private String operacion;
     
+    /**
+     * Variable de tipo panel que almacena los botones operacionales.
+     */
     private final JPanel panelOperaciones = new JPanel();
     
+    /**
+     * Variable de tipo panel que almacena los botones numéricos.
+     */
     private final JPanel panelNumeros = new JPanel();
     
+    /**
+     * Variable etiqueta usada para mostrar la pantalla de valores de 
+     * nuestra calculadora durante la ejecución de la misma.
+     */
     private final JTextField pantalla = new JTextField("0.", 20);
     
+    /**
+     * Constructor principal de la aplicación.
+     * Inicializa la Interfaz y los elementos multimedia utilizados
+     * para visualizar de forma interactiva la ejecución del programa.
+     */
     protected Calculadora() {
         setSize(350, 300);
         setResizable(false);
@@ -65,7 +96,13 @@ public class Calculadora extends JFrame {
         
         panel.add("East", panelOperaciones);
     }
-
+    
+    /**
+     * Método usado para introducir y asignar botones numéricos en 
+     * nuestra calculadora.
+     * 
+     * @param digito String: cadena que identifica el botón a añadir.
+     */
     protected void nuevoBotonNumerico(String digito) {
         JButton btn = new JButton(digito);
         btn.addMouseListener(new MouseAdapter() {
@@ -78,6 +115,12 @@ public class Calculadora extends JFrame {
         panelNumeros.add(btn);
     }
     
+    /**
+     * Método usado para introducir y asignar botones operacionales en 
+     * nuestra calculadora.
+     * 
+     * @param operacion String: cadena que identifica el botón a añadir.
+     */
     protected void nuevoBotonOperacion(String operacion) {
         JButton btn=new JButton(operacion);
         btn.setForeground(Color.RED);
@@ -91,6 +134,12 @@ public class Calculadora extends JFrame {
         panelOperaciones.add(btn);
     }
     
+    /**
+     * Método usado para simular la lógica del pulsamiento de dígitos,
+     * procesando la petición correspondiente en nuestra calculadora.
+     * 
+     * @param digito String: cadena que identifica el dígito pulsado.
+     */
     protected void numeroPulsado(String digito) {
         if(pantalla.getText().equals("0") || nuevaOperacion)
             pantalla.setText(digito);
@@ -99,6 +148,12 @@ public class Calculadora extends JFrame {
         nuevaOperacion = false;
     }
     
+    /**
+     * Método usado para simular la lógica del pulsamiento de operaciones,
+     * procesando la petición correspondiente en nuestra calculadora.
+     * 
+     * @param tecla String: cadena que identifica la tecla pulsada.
+     */
     protected void operacionPulsado(String tecla) {
         switch (tecla) {
             case "=":
@@ -125,6 +180,10 @@ public class Calculadora extends JFrame {
         nuevaOperacion = true;
     }
     
+    /**
+     * Método utilizado para calcular el resultado de la operación realizada. 
+     * Sobrescribe el valor del resultado con el obtenido tras la operación.
+     */
     protected void calcularResultado() {
         switch (operacion) {
             case "+":   resultado += new Double(pantalla.getText());    break;
@@ -137,6 +196,11 @@ public class Calculadora extends JFrame {
         operacion = "";
     }
     
+    /**
+     * Genera una Interfaz que controla y visualiza la ejecución del programa.
+     *
+     * @param args String[]: argumentos de la línea de comandos
+     */
     public static void main(String[] args) {
         new Calculadora().setVisible(true);
     }
